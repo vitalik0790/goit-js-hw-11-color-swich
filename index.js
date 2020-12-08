@@ -13,16 +13,24 @@ const randomIntegerFromInterval = (min, max) => {
 
 const startBtn = document.querySelector('button[data-action="start"]');
 const stopBtn = document.querySelector('button[data-action="stop"]');
+const bodyRef = document.querySelector('body')
 let timerId = null;
+let isActive = false;
 
 
 startBtn.addEventListener("click", () => {
+    if (isActive) {
+        return;
+    }
+    isActive = true;
     timerId = setInterval(() => {
-        console.log(`I love async JS! ${Date.now()}`);
+        bodyRef.style.background = colors[randomIntegerFromInterval(0, colors.length - 1)];
+
     }, 1000);
 });
 
 stopBtn.addEventListener("click", () => {
     clearInterval(timerId);
-    console.log("setInterval stopped!");
+    isActive = false;
 });
+
